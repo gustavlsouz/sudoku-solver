@@ -13,8 +13,12 @@ const main = async () => {
         process.exit()
     }
     const sudoku = await loadSudokuTextFile(path.join(__dirname, 'cases', fileName))
-    const resolvedSudoku = await sudokuSolver.resolve({ sudoku })
-    logSudoku(resolvedSudoku)
+    const solutions = []
+    const result = await sudokuSolver.resolve({ sudoku, solutions })
+    logSudoku(result.sudoku)
+    solutions.forEach(solution => {
+        logSudoku(solution)
+    })
 }
 
 main()

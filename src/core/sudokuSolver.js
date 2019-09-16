@@ -52,6 +52,12 @@ const getPosibleNumbers = (sudoku, options) => {
 
 const getNextLineAndColumnToFill = (sudoku) => {
     const line = sudoku.findIndex(line => line.includes(0))
+    if (line == -1) {
+        return {
+            line,
+            column: -1,
+        }
+    }
     const column = sudoku[line].findIndex(number => number === 0)
     return {
         line,
@@ -63,16 +69,38 @@ const copy = (sudoku) => {
     return sudoku.map(line => line.concat())
 }
 
-const resolve = async ({ sudoku, }) => {
+const resolve = async ({ sudoku, solutions }) => {
     const currentSudoku = copy(sudoku)
     const { line, column } = getNextLineAndColumnToFill(currentSudoku)
     const possibleNumbers = getPosibleNumbers(currentSudoku, { line, column })
     const possibleNumbersLength = possibleNumbers.length
+    if (!possibleNumbersLength) {
+        return {
+            sudoku: currentSudoku,
+            finish: false,
+        }
+    }
     for (let index = 0; index < possibleNumbersLength; index++) {
         const number = possibleNumbers[index];
-        
+        currentSudoku[line][column] = number
+        const nextValues = getNextLineAndColumnToFill(currentSudoku)
+        const finish = nextValues.line === -1 && nextValues.column === -1
+        if (finish) {
+            solutions.push(copy(currentSudoku))
+            // return {
+            //     sudoku: currentSudoku,
+            //     // finish: false,
+            // }
+        }
+        const result = await resolve({ sudoku: currentSudoku, solutions })
+        // if (result.finish) {
+        //     return result
+        // }
     }
-    return currentSudoku
+    return {
+        sudoku: currentSudoku,
+        finish: false,
+    }
 }
 
 module.exports = {
