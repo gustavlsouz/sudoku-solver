@@ -1,14 +1,16 @@
+const possibleOptions = Object.freeze([...Array(10).keys()].slice(1))
 const getPosibleNumbers = (sudoku, options) => {
     const { line, column } = options
     const inLine = sudoku[line]
-    const inColumn = sudoku.map(line => {
-        return line[column]
+    const inColumn = sudoku.map(lineItem => {
+        return lineItem[column]
     })
     const inSquare = []
     const usedNumbers = [].concat(inSquare, inColumn, inLine)
-    return [...Array(10).keys()].filter(number => {
-        return number !== 0 && !number.includes(usedNumbers)
+    const possibleNumbers = possibleOptions.filter(number => {
+        return number !== 0 && !usedNumbers.includes(number)
     })
+    return possibleNumbers
 }
 
 const getNextLineAndColumnToFill = (sudoku) => {
@@ -28,6 +30,7 @@ const resolve = async ({ sudoku, }) => {
     const currentSudoku = copy(sudoku)
     const { line, column } = getNextLineAndColumnToFill(currentSudoku)
     const possibleNumbers = getPosibleNumbers(currentSudoku, { line, column })
+    return currentSudoku
 }
 
 module.exports = {
