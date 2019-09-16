@@ -1,18 +1,6 @@
+const logSudoku = require('./../utils/logSudoku')
+
 const possibleOptions = Object.freeze([...Array(10).keys()].slice(1))
-const initSquares = [
-    {
-        line: 0,
-        column: 0,
-    },
-    {
-        line: 3,
-        column: 0,
-    },
-    {
-        line: 6,
-        column: 0,
-    },
-]
 
 const getInitIndex = (index) => {
     if (index < 3) {
@@ -69,37 +57,41 @@ const copy = (sudoku) => {
     return sudoku.map(line => line.concat())
 }
 
-const resolve = async ({ sudoku, solutions }) => {
+const resolve = async ({ sudoku }) => {
     const currentSudoku = copy(sudoku)
+    const results = {
+        solutions: []
+    }
     const { line, column } = getNextLineAndColumnToFill(currentSudoku)
     const possibleNumbers = getPosibleNumbers(currentSudoku, { line, column })
     const possibleNumbersLength = possibleNumbers.length
     if (!possibleNumbersLength) {
+        console.log("Any number is possible")
         return {
-            sudoku: currentSudoku,
-            finish: false,
+            solutions: [],
         }
     }
+    console.log("possibilities for ", "line", line, "column", column)
+    console.log(possibleNumbers.join(" "))
     for (let index = 0; index < possibleNumbersLength; index++) {
         const number = possibleNumbers[index];
         currentSudoku[line][column] = number
+        console.log("line", line, "column", column, "number", number)
         const nextValues = getNextLineAndColumnToFill(currentSudoku)
         const finish = nextValues.line === -1 && nextValues.column === -1
         if (finish) {
-            solutions.push(copy(currentSudoku))
-            // return {
-            //     sudoku: currentSudoku,
-            //     // finish: false,
-            // }
+            logSudoku(currentSudoku, "Solution was found")
+            return {
+                solutions: [copy(currentSudoku)],
+            }
         }
-        const result = await resolve({ sudoku: currentSudoku, solutions })
-        // if (result.finish) {
-        //     return result
-        // }
+        const result = await resolve({ sudoku: currentSudoku })
+        if (result.solutions && result.solutions.length) {
+            results.solutions = results.solutions.concat(result.solutions)
+        }
     }
     return {
-        sudoku: currentSudoku,
-        finish: false,
+        solutions: results.solutions,
     }
 }
 

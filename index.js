@@ -13,11 +13,9 @@ const main = async () => {
         process.exit()
     }
     const sudoku = await loadSudokuTextFile(path.join(__dirname, 'cases', fileName))
-    const solutions = []
-    const result = await sudokuSolver.resolve({ sudoku, solutions })
-    logSudoku(result.sudoku)
-    solutions.forEach(solution => {
-        logSudoku(solution)
+    const result = await sudokuSolver.resolve({ sudoku })
+    result.solutions.forEach((solution, index) => {
+        logSudoku(solution, "solution " + index)
     })
 }
 
