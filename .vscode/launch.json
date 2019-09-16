@@ -8,9 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            // "program": "${workspaceFolder}/index.js",
-            "program": "${workspaceFolder}/test/utils/loadSudokuTextFile.test.js",
-            "args": ["opes"]
+            "program": "${workspaceFolder}/index.js",
+            // "program": "${workspaceFolder}/test/utils/loadSudokuTextFile.test.js",
+            "args": ["sudoku1.txt"]
         }
     ]
 }
