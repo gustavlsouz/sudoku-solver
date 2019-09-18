@@ -67,9 +67,7 @@ const resolve = async ({ sudoku }) => {
     const possibleNumbersLength = possibleNumbers.length
     if (!possibleNumbersLength) {
         console.log("Any number is possible")
-        return {
-            solutions: [],
-        }
+        return results
     }
     console.log("possibilities for ", "line", line, "column", column)
     console.log(possibleNumbers.join(" "))
@@ -78,21 +76,18 @@ const resolve = async ({ sudoku }) => {
         currentSudoku[line][column] = number
         console.log("line", line, "column", column, "number", number)
         const nextValues = getNextLineAndColumnToFill(currentSudoku)
-        const finish = nextValues.line === -1 && nextValues.column === -1
-        if (finish) {
+        const finishOnePossibility = nextValues.line === -1 && nextValues.column === -1
+        if (finishOnePossibility) {
             logSudoku(currentSudoku, "Solution was found")
-            return {
-                solutions: [copy(currentSudoku)],
-            }
+            results.solutions = results.solutions.concat([copy(currentSudoku)])
+            return results
         }
         const result = await resolve({ sudoku: currentSudoku })
         if (result.solutions && result.solutions.length) {
             results.solutions = results.solutions.concat(result.solutions)
         }
     }
-    return {
-        solutions: results.solutions,
-    }
+    return results
 }
 
 module.exports = {
