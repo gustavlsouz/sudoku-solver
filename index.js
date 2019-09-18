@@ -14,7 +14,7 @@ const main = async () => {
     }
     const sudoku = await loadSudokuTextFile(path.join(__dirname, 'cases', fileName))
     const timeInit = Date.now()
-    const result = await sudokuSolver.resolve({ sudoku })
+    const result = await sudokuSolver.solve({ sudoku })
     const timeEnd = Date.now()
     result.solutions.forEach((solution, index) => {
         logSudoku(solution, "solution " + index)
