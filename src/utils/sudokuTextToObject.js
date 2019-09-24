@@ -1,0 +1,1 @@
+module.exports = (content = '') => content.split("\n").map(line => line.match(/[0-9]/g).map(Number))

@@ -1,0 +1,25 @@
+{
+  "name": "sudoku-solver",
+  "version": "1.0.0",
+  "description": "js sudoku solver",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavlsouz/sudoku-solver.git"
+  },
+  "author": "gustavlsouz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gustavlsouz/sudoku-solver/issues"
+  },
+  "homepage": "https://github.com/gustavlsouz/sudoku-solver#readme",
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  }
+}
