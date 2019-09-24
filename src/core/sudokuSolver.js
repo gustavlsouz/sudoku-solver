@@ -12,6 +12,7 @@ const getInitIndex = (index) => {
     if (index < 9) {
         return 6
     }
+    return 0
 }
 
 const getCurrentSquare = (sudoku, { line, column }) => {

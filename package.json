@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test:all": "npm run lint && npm test",
+    "test": "mocha \"test/**/*.spec.js\"",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/gustavlsouz/sudoku-solver#readme",
   "devDependencies": {
+    "eslint": "^6.4.0",
     "mocha": "^6.2.0"
   }
 }
