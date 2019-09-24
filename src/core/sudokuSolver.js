@@ -24,7 +24,7 @@ const getCurrentSquare = (sudoku, { line, column }) => {
     })
 }
 
-const getPosibleNumbers = (sudoku, options) => {
+const getPossibleNumbers = (sudoku, options) => {
     const { line, column } = options
     const inLine = sudoku[line]
     const inColumn = sudoku.map(lineItem => {
@@ -65,7 +65,7 @@ const solve = ({ sudoku }) => new Promise((resolve) => {
             solutions: []
         }
         const { line, column } = getNextLineAndColumnToFill(currentSudoku)
-        const possibleNumbers = getPosibleNumbers(currentSudoku, { line, column })
+        const possibleNumbers = getPossibleNumbers(currentSudoku, { line, column })
         const possibleNumbersLength = possibleNumbers.length
         if (!possibleNumbersLength) {
             // console.log("Any number is possible")
@@ -99,7 +99,7 @@ const solveSync = ({ sudoku }) => {
         solutions: []
     }
     const { line, column } = getNextLineAndColumnToFill(currentSudoku)
-    const possibleNumbers = getPosibleNumbers(currentSudoku, { line, column })
+    const possibleNumbers = getPossibleNumbers(currentSudoku, { line, column })
     const possibleNumbersLength = possibleNumbers.length
     if (!possibleNumbersLength) {
         // console.log("Any number is possible")
