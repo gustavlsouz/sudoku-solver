@@ -23,6 +23,6 @@
   "homepage": "https://github.com/gustavlsouz/sudoku-solver#readme",
   "devDependencies": {
     "eslint": "^6.4.0",
-    "mocha": "^6.2.0"
+    "mocha": "^10.2.0"
   }
 }
